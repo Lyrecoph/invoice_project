@@ -141,14 +141,14 @@ const Invoices: React.FC = () => {
             <tr>
               <td colSpan={columns.length} className="text-center p-4">
                 <div className="flex justify-center">
-                  <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div> // Loader de chargement
+                  <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div> 
                 </div>
               </td>
             </tr>
           ) : rows.length === 0 ? (
               <tr>
                 <td colSpan={columns.length} className="text-center p-4">
-                  Aucune facture trouvée. // Message absence de factures
+                  Aucune facture trouvée. 
                 </td>
               </tr>
             ) : (
@@ -164,7 +164,7 @@ const Invoices: React.FC = () => {
                       const { key, ...cellProps } = cell.getCellProps();
                       return (
                         <td key={key} {...cellProps} className="px-6 py-4 border-b">
-                          {cell.render('Cell')} // Rendu de la cellule
+                          {cell.render('Cell')} 
                         </td>
                       );
                     })}
