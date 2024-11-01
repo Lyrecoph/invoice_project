@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* src/app/global.css */
+
+/* Style de base pour le body */
+body {
+  @apply bg-gray-100 text-gray-900;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Styles par défaut pour les liens */
+a {
+  @apply text-blue-600 hover:text-blue-800;
+}
+
+/* Styles de titre */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold text-gray-800;
+}
+
+
+/* Styles pour le conteneur principal */
+.main-container {
+  @apply mx-auto max-w-4xl p-4;
+}
+
+/* Styles pour le menu de navigation */
+.nav-link {
+  @apply text-white hover:text-gray-300;
+}
