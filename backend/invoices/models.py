@@ -29,4 +29,4 @@ class ArticleDeFacture(models.Model):
 
     def __str__(self):
         """Retourne une représentation sous forme de chaîne de l'article de facture."""
-        return f"{self.description} - {self.quantite} x {self.prix}"
+        return "{} - {} x {:.2f}".format(self.description, self.quantite, self.prix)

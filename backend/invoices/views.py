@@ -8,6 +8,7 @@ from rest_framework import status
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -157,10 +158,9 @@ class FactureListView(ListAPIView):
     queryset = Facture.objects.all()  # Obtient toutes les factures de la base de données
     serializer_class = FactureSerializer  # Spécifie le sérialiseur à utiliser pour les réponses
 
-
 class FactureDetailView(RetrieveAPIView):
     """
     Vue pour obtenir les détails d’une facture spécifique.
     """
-    queryset = Facture.objects.all()  # Obtient toutes les factures de la base de données
+    queryset = Facture.objects.all().prefetch_related('articles')  # Obtient toutes les factures lié de la base de données
     serializer_class = FactureDetailSerializer  # Spécifie le sérialiseur à utiliser pour les réponses détaillées
