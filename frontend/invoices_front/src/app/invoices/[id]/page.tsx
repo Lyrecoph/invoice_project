@@ -15,7 +15,7 @@ const InvoiceDetail: React.FC = () => {
     const fetchInvoice = async () => {
       try {
         // Requête pour récupérer les détails de la facture par ID.
-        const response = await axios.get(`http://localhost:8000/api/invoices/${id}/`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/invoices/${id}/`);
         setInvoice(response.data); // Mise à jour de l'état avec les données de la facture.
       } catch (error) {
         console.error('Erreur lors du chargement de la facture:', error); // Gestion des erreurs de requête.

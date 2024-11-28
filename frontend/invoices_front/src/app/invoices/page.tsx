@@ -12,14 +12,15 @@ const Invoices: React.FC = () => {
   const [invoices, setInvoices] = useState<Invoice[]>([]); // État pour stocker la liste des factures
   const [loading, setLoading] = useState<boolean>(true); // État pour indiquer si les données sont en cours de chargement
   const [isClient, setIsClient] = useState(false); // État pour vérifier si le composant est exécuté côté client
+  // const [pageSize, setPageSize] = useState(10); // État pour le nombre de lignes par page
 
   // useEffect pour charger les factures lors du montage du composant
   useEffect(() => {
     setIsClient(true); // Confirme que l'exécution est côté client
-
+    
     const fetchInvoices = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/invoices/'); // Requête pour récupérer les factures
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/invoices/`); // Requête pour récupérer les factures
         setInvoices(response.data); // Stockage des données de factures dans l'état
       } catch (error) {
         console.error('Erreur lors du chargement des factures:', error); // Gestion des erreurs
@@ -77,11 +78,12 @@ const Invoices: React.FC = () => {
     canPreviousPage,
     pageOptions,
     state,
+  
   } = useTable(
     {
       columns,
       data,
-      initialState: { pageIndex: 0 }, // État initial de la pagination
+      initialState: { pageIndex: 0 }, // État initial avec le nombre de lignes par page
     },
     useGlobalFilter,
     useSortBy,
@@ -105,6 +107,7 @@ const Invoices: React.FC = () => {
           className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
+
 
       {/* Tableau */}
       <div className="overflow-x-auto">
