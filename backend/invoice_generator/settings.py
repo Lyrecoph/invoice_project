@@ -85,28 +85,29 @@ WSGI_APPLICATION = 'invoice_generator.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# Récupère DATABASE_URL depuis l'environnement (il doit être défini sur Railway)
+DATABASE_URL = config("DATABASE_URL", default=None)
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME', default="invoices"),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT', default='5432'),
-    }
-},
-
-DATABASES_URL = config("DATABASE_URL", cast=str, default=None)
-
-if DATABASES_URL is not None:
+if DATABASE_URL:
     import dj_database_url
     DATABASES = {
         "default": dj_database_url.config(
-            default=DATABASES_URL,
+            default=DATABASE_URL,
             conn_max_age=300,
             conn_health_checks=True
         )
+    }
+else:
+    # Si DATABASE_URL n'est pas défini, on lit les autres variables
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config('DB_NAME', default="invoices"),
+            'USER': config('DB_USER', default="postgres"),
+            'PASSWORD': config('DB_PASSWORD', default="root"),
+            'HOST': config('DB_HOST', default="localhost"),
+            'PORT': config('DB_PORT', default="5432"),
+        }
     }
 
 print("DB_NAME =", os.environ.get("DB_NAME"))
