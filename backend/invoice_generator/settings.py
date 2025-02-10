@@ -85,11 +85,12 @@ WSGI_APPLICATION = 'invoice_generator.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# Récupère DATABASE_URL depuis l'environnement (il doit être défini sur Railway)
+import dj_database_url
+
+# Essayez d'obtenir DATABASE_URL depuis l'environnement
 DATABASE_URL = config("DATABASE_URL", default=None)
 
 if DATABASE_URL:
-    import dj_database_url
     DATABASES = {
         "default": dj_database_url.config(
             default=DATABASE_URL,
@@ -98,7 +99,7 @@ if DATABASE_URL:
         )
     }
 else:
-    # Si DATABASE_URL n'est pas défini, on lit les autres variables
+    # Option de secours pour le développement local
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -109,7 +110,6 @@ else:
             'PORT': config('DB_PORT', default="5432"),
         }
     }
-
 print("DB_NAME =", os.environ.get("DB_NAME"))
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
