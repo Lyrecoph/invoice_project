@@ -1,0 +1,30 @@
+# Ignorer les fichiers de configuration locaux et sensibles
+.env
+*.env
+venv
+
+# Fichiers pour le backend Django
+**/__pycache__/
+*.pyc
+**/__pycache__/
+
+static/
+media/
+
+# Ignorer les fichiers de migration de Django
+**/migrations/
+
+# Ignorer les fichiers de logs
+*.log
+
+# Fichiers pour le frontend Next.js
+node_modules/
+.next/
+out/
+.env.local
+.env.production
+
+# Fichiers globaux
+.DS_Store
+.env
+
