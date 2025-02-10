@@ -84,19 +84,32 @@ WSGI_APPLICATION = 'invoice_generator.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-print("DB_NAME =", os.environ.get("DB_NAME"))
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
+        'NAME': config('DB_NAME', default="invoices"),
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
         'HOST': config('DB_HOST'),
         'PORT': config('DB_PORT', default='5432'),
     }
-}
+},
 
+DATABASES_URL = config("DATABASE_URL", cast=str, default=None)
 
+if DATABASES_URL is not None:
+    import dj_database_url
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=DATABASES_URL,
+            conn_max_age=300,
+            conn_health_checks=True
+        )
+    }
+
+print("DB_NAME =", os.environ.get("DB_NAME"))
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
