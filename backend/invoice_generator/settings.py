@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 from decouple import config
 
@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'invoice_generator.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
+print("DB_NAME =", os.environ.get("DB_NAME"))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
